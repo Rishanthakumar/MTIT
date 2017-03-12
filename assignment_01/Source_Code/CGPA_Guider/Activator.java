@@ -53,16 +53,16 @@ public class Activator implements BundleActivator {
             double totalGPA;
             String message;
 
-            if (gpa.length > 3 || gpa.length == 0) {
+            if (gpa.length > 4 || gpa.length == 0) {
                 message = "Sorry! You have entered invalid information";
 
-            } else if (gpa.length == 3) {
+            } else if (gpa.length == 4) {
                 totalGPA = this.calCurrentGPA(gpa);
                 message = "Your class is : " + this.getClass(totalGPA);
 
             } else {
                 totalGPA = this.calCurrentGPA(gpa);
-                message = "Highest Class you can get is : " + this.getProbability((gpa.length - 1), totalGPA);
+                message = "Highest Class you can get now is : " + this.getProbability((gpa.length - 1), totalGPA);
             }
 
             return message;
