@@ -71,11 +71,10 @@ public class Activator implements BundleActivator {
         private double calCurrentGPA(double[] gpa) {
             double sum = 0;
             for (int i = 0; i < gpa.length; i++) {
-
                 if (this.gpaRates[i] == 0.0) {
                     break;
                 } else {
-                    sum += gpa[i] / this.gpaRates[i];
+                    sum += gpa[i] * this.gpaRates[i];
                 }
             }
             return sum;
@@ -108,7 +107,7 @@ public class Activator implements BundleActivator {
         private double fillGPA(int completedYears, double total) {
 
             for (int i = completedYears; i < 4; i++) {
-                total += (4.0 / this.gpaRates[i]);
+                total += (4.0 * this.gpaRates[i]);
             }
             return total;
         }
