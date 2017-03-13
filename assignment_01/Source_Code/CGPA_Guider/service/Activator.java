@@ -1,4 +1,4 @@
-package cgpa.guider;
+package cgpa.guider.service;
 
 import java.util.Hashtable;
 
@@ -25,9 +25,9 @@ public class Activator implements BundleActivator {
      * @param context the framework context for the bundle.
     **/
     public void start(BundleContext context) {
-        // Hashtable<String, String> props = new Hashtable<String, String>();
-        // props.put("Language", "English");
-        context.registerService(CGPAGuiderService.class.getName(), new CGPAGuiderImpl());
+        Hashtable<String, String> props = new Hashtable<String, String>();
+        props.put("Language", "English");
+        context.registerService(CGPAGuiderService.class.getName(), new CGPAGuiderImpl(),props);
         System.out.println("CGPAGuiderService service registered and started successfully");
     }
 
@@ -45,11 +45,8 @@ public class Activator implements BundleActivator {
         double[] gpaRates = { 0.0, 0.2, 0.3, 0.5 };
         String[] classes = { "First Class", "Second Upper Class", "Second Lower Class" };
 
-        public Boolean firstClass = false;
-        public Boolean secondClassUpper = false;
-        public Boolean secondClassLower = false;
 
-        public String calculateCGPAStatus(double[] gpa) {
+        public String calculateCGPAStatus(Double[] gpa) {
             double totalGPA;
             String message;
 
@@ -62,17 +59,17 @@ public class Activator implements BundleActivator {
 
             } else {
                 totalGPA = this.calCurrentGPA(gpa);
-                message = "Highest Class you can get now is : " + this.getProbability((gpa.length - 1), totalGPA);
+                message = "Highest Class you can get now is : " + this.getProbability((gpa.length), totalGPA);
             }
 
             return message;
         }
 
-        private double calCurrentGPA(double[] gpa) {
+        private double calCurrentGPA(Double[] gpa) {
             double sum = 0;
             for (int i = 0; i < gpa.length; i++) {
                 if (this.gpaRates[i] == 0.0) {
-                    break;
+                    continue;
                 } else {
                     sum += gpa[i] * this.gpaRates[i];
                 }
@@ -100,7 +97,7 @@ public class Activator implements BundleActivator {
             double filledTotal = 0;
             filledTotal = this.fillGPA(completedYears, total);
 
-            return this.getClass(total);
+            return this.getClass(filledTotal);
 
         }
 
